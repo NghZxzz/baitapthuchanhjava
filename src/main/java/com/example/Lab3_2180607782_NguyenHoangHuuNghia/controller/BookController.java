@@ -41,6 +41,7 @@ public class BookController {
     {
         if(result.hasErrors())
         {
+            model.addAttribute("categories", categoryService.getAllCategories());
             return "book/add";
         }
         bookService.addBook(book);
@@ -53,6 +54,7 @@ public class BookController {
         if(editbook != null)
         {
             model.addAttribute("book",editbook);
+            model.addAttribute("categories", categoryService.getAllCategories());
             return "book/edit";
         }else{
             return "not-found";
