@@ -63,7 +63,7 @@ public class BookController {
     @PostMapping("/edit")
     public String editBook(@ModelAttribute("book") Book updatebook){
         bookService.updateBook(updatebook);
-        return "redirect:/";
+        return "redirect:/books";
     }
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") long id)

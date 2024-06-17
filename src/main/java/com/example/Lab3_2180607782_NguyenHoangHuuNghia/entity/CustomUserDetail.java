@@ -2,11 +2,15 @@ package com.example.Lab3_2180607782_NguyenHoangHuuNghia.entity;
 
 import com.example.Lab3_2180607782_NguyenHoangHuuNghia.repository.IUserRepository;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public  class CustomUserDetail implements UserDetails {
     private final User user;
@@ -17,8 +21,10 @@ public  class CustomUserDetail implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+    public Collection<? extends  GrantedAuthority> getAuthorities(){
+        return Arrays.stream(userRepository.getRolesOfUser(user.getId()))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toSet());
     }
 
     @Override
